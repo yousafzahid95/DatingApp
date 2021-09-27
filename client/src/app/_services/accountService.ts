@@ -8,14 +8,14 @@ import { User } from '../_models/user';
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = 'https://localhost:5001/api';
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
   login(model: any){
-    return this.http.post(this.baseUrl + 'account/login', model).pipe(
+    return this.http.post(this.baseUrl + '/account/login', model).pipe(
       map((response) => {
         const user = response as User;
         if(user){
@@ -27,7 +27,7 @@ export class AccountService {
   }
 
   register(model: any){
-    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+    return this.http.post(this.baseUrl + '/account/register', model).pipe(
       map((user: any) => {
         if(user){
           localStorage.setItem('user', JSON.stringify(user));
